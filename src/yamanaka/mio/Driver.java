@@ -20,7 +20,7 @@ public class Driver {
 		}
 		Board two = new Board(length, length);
 		if (players == 1) {
-			// random ship placements
+			//
 		} else {
 			for (int i = 0; i <= 5; i++) {
 				int x1 = input.nextInt();
@@ -40,13 +40,14 @@ public class Driver {
 				System.out.println("Player 1 wins!");
 				break;
 			}
-			// player 2
-			int x2 = input.nextInt();
-			int y2 = input.nextInt();
-			attack(x2, y2, one);
-			if (defeated(one)) {
-				System.out.println("Player 2 wins!");
-				break;
+			if (players == 2) {
+				int x2 = input.nextInt();
+				int y2 = input.nextInt();
+				attack(x2, y2, one);
+				if (defeated(one)) {
+					System.out.println("Player 2 wins!");
+					break;
+				}
 			}
 		}
 
@@ -71,5 +72,9 @@ public class Driver {
 			}
 		}
 		return true;
+	}
+	// if both only have one spot left it could be a tie?
+	private static boolean tie(Board a, Board b) {
+		
 	}
 }
