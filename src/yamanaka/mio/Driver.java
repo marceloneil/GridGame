@@ -9,7 +9,9 @@ public class Driver {
 		Scanner input = new Scanner(System.in);
 		int players = input.nextInt();
 		int length = input.nextInt();
-
+		int p1hits = 0;
+		int p2hits = 0;
+		
 		Board one = new Board(length, length);
 		for (int i = 0; i <= 5; i++) {
 			int x1 = input.nextInt();
@@ -36,20 +38,27 @@ public class Driver {
 			int x1 = input.nextInt();
 			int y1 = input.nextInt();
 			attack(x1, y1, two);
-			if (defeated(two)) {
-				System.out.println("Player 1 wins!");
+			if (one.getBoard()[x1][y1].getHit()){
+				p1hits += 1;
+			}
+			if (p1hits == length * length) {
+				System.out.println("Player 2 wins!");
 				break;
 			}
 			if (players == 2) {
 				int x2 = input.nextInt();
 				int y2 = input.nextInt();
 				attack(x2, y2, one);
-				if (defeated(one)) {
-					System.out.println("Player 2 wins!");
-					break;
-				}
+			} else {
+				// AI
+			} if (p2hits == length * length) {
+				System.out.println("Player 2 wins!");
+				break;
+			} else if (p1hits == length * length - 1 && p1hits == p2hits){
+				System.out.println("Tie!");
+				break;
 			}
-		}
+		} 
 
 		input.close();
 	}
@@ -59,22 +68,5 @@ public class Driver {
 			b.getBoard()[x][y].bomb();
 		}
 		return b.getBoard()[x][y].getHit();
-	}
-
-	private static boolean defeated(Board b) {
-		for (int i = 0; i < b.getBoard().length; i++) {
-			for (int j = 0; j < b.getBoard()[0].length; j++) {
-				if (b.getBoard()[i][j].getShip() == true && b.getBoard()[i][j].getHit() == true) {
-					continue;
-				} else {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	// if both only have one spot left it could be a tie?
-	private static boolean tie(Board a, Board b) {
-		
 	}
 }
